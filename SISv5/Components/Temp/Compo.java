@@ -183,10 +183,10 @@ public class Compo {
         encoder.sendMsg(back);
 
         switch(type){
-            case "Setting":
+            case "21":
                 back = new KeyValueList();
                 back.putPair("Scope", SCOPE);
-                back.putPair("MessageType", "Alert");
+                back.putPair("MessageType", "21");
                 back.putPair("Sender",NAME);
                 back.putPair("Receiver", "SIS Remote");
                 encoder.sendMsg(back);
