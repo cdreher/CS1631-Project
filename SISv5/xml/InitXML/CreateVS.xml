@@ -7,11 +7,6 @@
 	</Item>
 	<Item>
 		<Key>MessageType</Key>
-		<Value>Alert</Value>
-	</Item>
-	<Item>
-		<!-- Create Voting Software Component -->
-		<Key>MsgID</Key>
 		<Value>21</Value>
 	</Item>
 	<Item>
