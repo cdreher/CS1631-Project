@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="723fd1f7-c2cb-4e94-aa36-0769822f1976" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Components/Temp/Compo.class" beforeDir="false" afterPath="$PROJECT_DIR$/Components/Temp/Compo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/Temp/Compo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Components/Temp/Compo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewSISServer/SISTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewSISServer/SISTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xml/InitXML/CastVote.xml" beforeDir="false" afterPath="$PROJECT_DIR$/xml/InitXML/CastVote.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xml/InitXML/CreateVS.xml" beforeDir="false" afterPath="$PROJECT_DIR$/xml/InitXML/CreateVS.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,22 +15,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Components/Temp/Compo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="165" column="7" selection-start-line="165" selection-start-column="7" selection-end-line="165" selection-end-column="7" />
+            <state relative-caret-position="231">
+              <caret line="121" column="17" lean-forward="true" selection-start-line="121" selection-start-column="17" selection-end-line="121" selection-end-column="17" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Components/Temp/Compo.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-127">
-              <caret line="24" column="13" lean-forward="true" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#4444#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -52,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NewSISServer/SISTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="628">
-              <caret line="250" selection-start-line="250" selection-end-line="250" />
+            <state relative-caret-position="296">
+              <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,8 +71,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="44" />
-    <option name="y" value="56" />
+    <option name="x" value="388" />
+    <option name="y" value="57" />
     <option name="width" value="1400" />
     <option name="height" value="914" />
   </component>
@@ -139,7 +122,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551045541069" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551046448328" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -166,15 +149,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1551044158190</updated>
-      <workItem from="1551044160972" duration="1278000" />
+      <workItem from="1551044160972" duration="2200000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1278000" />
+    <option name="totallyTimeSpent" value="2200000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="56" width="1400" height="914" extended-state="0" />
+    <frame x="388" y="57" width="1400" height="914" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
@@ -214,6 +197,34 @@
     <entry file="file://$PROJECT_DIR$/Components/Temp/Code.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/NewSISServer/SISHandlers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="625" column="33" selection-start-line="625" selection-start-column="33" selection-end-line="625" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Components/Temp/Compo.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="60" lean-forward="true" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#4444#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Components/Temp/Compo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="121" column="17" lean-forward="true" selection-start-line="121" selection-start-column="17" selection-end-line="121" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NewSISServer/SISPullTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1093">
@@ -223,39 +234,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NewSISServer/SISHandlers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="625" column="33" selection-start-line="625" selection-start-column="33" selection-end-line="625" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NewSISServer/SISTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="628">
-          <caret line="250" selection-start-line="250" selection-end-line="250" />
+        <state relative-caret-position="296">
+          <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Components/Temp/Compo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="165" column="7" selection-start-line="165" selection-start-column="7" selection-end-line="165" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Components/Temp/Compo.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="24" column="13" lean-forward="true" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#4444#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>

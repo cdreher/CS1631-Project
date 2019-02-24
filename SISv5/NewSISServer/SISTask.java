@@ -244,6 +244,56 @@ public class SISTask implements Runnable {
                 SISHandlers.MsgHandler(scope, sender, receiver, direction,
                         broadcast, kvList);
                 break;
+
+            case "22":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "23":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "24":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "25":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "26":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "701":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "702":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "703":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "711":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
+
+            case "712":
+                SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                        broadcast, kvList);
+                break;
         default:
             break;
         }
