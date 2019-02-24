@@ -49,6 +49,8 @@ public class Compo {
 
     private static Hashtable<String, Integer> tallyTable = new Hashtable<String, Integer>();
     private static Hashtable<String, String> voterTable = new Hashtable<String, String>();
+    private static List<String> candidateList = new ArrayList<String>(
+            Arrays.asList(new String[] { "001", "002", "003", "004", "005", "006" }));
 
     /*
      *  Main program
@@ -198,24 +200,38 @@ public class Compo {
                 break;
 
             case "701":
-                back = new KeyValueList();
-                back.putPair("Scope", SCOPE);
-                back.putPair("MessageType", "701");
-                back.putPair("Sender",NAME);
-                back.putPair("Receiver", "SIS Remote");
-                encoder.sendMsg(back);
-
                 boolean voterHasVoted;
 
                 //If voterTable does NOT contain VoterPhoneNo key yet.
                 if(!voterTable.containsKey(kvList.getValue("VoterPhoneNo"))){
-                  voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
-                  voterHasVoted = false;
+                  if(candidateList.contains(kvList.getValue("CandidateID"))){
+                    voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
+                    voterHasVoted = false;
+                  }
+                  else{
+                    back = new KeyValueList();
+                    back.putPair("Scope", SCOPE);
+                    back.putPair("MessageType", "711");
+                    back.putPair("Sender",NAME);
+                    back.putPair("Receiver", "SIS Remote");
+                    back.putPair("Status", "2");
+                    encoder.sendMsg(back);
+                    System.out.println("Invalid candidate. Vote is not counted.\n");
+                    voterHasVoted = true;
+                  }
+
                 }
                 //If voterTable DOES contain VoterPhoneNo.
                 else {
                   System.out.println("Vote can not be counted. This user has voted already.\n");
                   voterHasVoted = true;
+                  back = new KeyValueList();
+                  back.putPair("Scope", SCOPE);
+                  back.putPair("MessageType", "711");
+                  back.putPair("Sender",NAME);
+                  back.putPair("Receiver", "SIS Remote");
+                  back.putPair("Status", "1");
+                  encoder.sendMsg(back);
                 }
 
                 if(!voterHasVoted){
@@ -234,6 +250,14 @@ public class Compo {
                   System.out.println("vote count: " + n);
 
                   System.out.println("Your vote has been cast!\n");
+
+                  back = new KeyValueList();
+                  back.putPair("Scope", SCOPE);
+                  back.putPair("MessageType", "711");
+                  back.putPair("Sender",NAME);
+                  back.putPair("Receiver", "SIS Remote");
+                  back.putPair("Status", "3");
+                  encoder.sendMsg(back);
 
                 }
                 break;
