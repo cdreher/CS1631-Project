@@ -88,7 +88,7 @@ public class SISTask implements Runnable {
 		System.out.println(kvList);
 		System.out.println("====================");
 		}
-		
+
         String scope = kvList.getValue("Scope");
 
         if (scope == null || scope.equals("")) {

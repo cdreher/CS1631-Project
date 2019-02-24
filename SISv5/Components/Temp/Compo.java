@@ -34,7 +34,7 @@ public class Compo {
     //messages types that can be handled by this component
     private static final List<String> TYPES = new ArrayList<String>(
             Arrays.asList(new String[] { "Reading", "Alert", "Confirm",
-                    "Connect", "Setting" }));
+                    "Connect", "Setting", "21" }));
 
     //Date & refresh information
     private static int refreshRate = 500, max = 40, min = 15;
@@ -194,6 +194,18 @@ public class Compo {
 
             case "Confirm":
                 System.out.println("Successfully connect to SISServer");
+                break;
+
+            case "Alert":
+                String msgID = kvList.getValue("MsgID");
+                switch(msgID){
+                  case "21":
+                      System.out.println("VotingSoftware create successfully.\n");
+                      break;
+                  case "701":
+                      System.out.println("Vote has been cast!\n");
+                      break;
+                }
                 break;
         }
 

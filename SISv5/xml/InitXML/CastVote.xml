@@ -6,8 +6,12 @@
 		<Value>SIS.Scope1</Value>
 	</Item>
 	<Item>
-		<!-- Cast user vote -->
 		<Key>MessageType</Key>
+		<Value>Alert</Value>
+	</Item>
+	<Item>
+		<!-- Cast user vote -->
+		<Key>MsgID</Key>
 		<Value>701</Value>
 	</Item>
 	<Item>
@@ -17,5 +21,13 @@
 	<Item>
 		<Key>CandidateID</Key>
 		<Value>001</Value>
+	</Item>
+	<Item>
+		<Key>Sender</Key>
+		<Value>SISServer</Value>
+	</Item>
+	<Item>
+		<Key>Receiver</Key>
+		<Value>Compo</Value>
 	</Item>
 </Msg>
