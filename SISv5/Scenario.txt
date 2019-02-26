@@ -1,0 +1,9 @@
+Voting System Software (Phone to PC) Scenario:
+
+- Voting System Software is initiated and loaded.
+- Voter #1 casts their vote.
+- Voter #1 attempts to cast another vote, but is denied.
+- Voter #2 casts their vote for a different candidate.
+- Voter #3 casts their vote for the SAME CANDIDATE AS VOTER #1.
+- Voter #4 casts a vote that is invalid, because the candidate ID does not exist.
+- The administrator of this system terminates the voting, and results are shown.
