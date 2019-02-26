@@ -193,7 +193,7 @@ public class Compo {
 
         switch(type){
             case "21":
-                if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel == kvList.getValue("SecurityLevel")){
+                if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
                   System.out.println("Admin successfully logged in.");
                   back = new KeyValueList();
                   back.putPair("Scope", SCOPE);
