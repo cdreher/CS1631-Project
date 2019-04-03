@@ -36,6 +36,21 @@ import javafx.util.Callback;
 
 public class ExtraGUIContent extends GridPane {
 
+// 	@FXML
+// 	private TextField phoneNum;
+//
+// 	@FXML
+//   private TextField candID;
+//
+// 	@FXML
+// 	private Label pnLabel;
+//
+// 	@FXML
+// 	private Label canLabel;
+//
+// 	@FXML
+//   private Button voteButton;
+
 	@FXML
 	TextField sIP;
 

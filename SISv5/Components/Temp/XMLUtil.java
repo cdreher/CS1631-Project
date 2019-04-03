@@ -1,31 +1,49 @@
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 public class XMLUtil {
 
-	public static KeyValueList extractToKV(File file) {
-		KeyValueList kvList = new KeyValueList();
-		try {
-			JAXBContext context = JAXBContext.newInstance(Msg.class);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-
-			Msg msg = (Msg) unmarshaller.unmarshal(file);
-
-			kvList = generateKV(msg);
-
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public static void saveKVToFile(KeyValueList kvList, File loc)
+			throws Exception {
+		if (kvList == null || loc == null) {
+			return;
 		}
+		JAXBContext context = JAXBContext.newInstance(Msg.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		Path target = FileSystems.getDefault().getPath(loc.getAbsolutePath());
+
+		Msg msg = kvList.encodedMsg();
+
+		marshaller.marshal(msg, Files.newBufferedWriter(target,
+				StandardCharsets.UTF_8, StandardOpenOption.CREATE,
+				StandardOpenOption.TRUNCATE_EXISTING));
+
+	}
+
+	public static KeyValueList extractToKV(File file) throws Exception {
+		KeyValueList kvList = new KeyValueList();
+
+		JAXBContext context = JAXBContext.newInstance(Msg.class);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+
+		Msg msg = (Msg) unmarshaller.unmarshal(file);
+
+		kvList = generateKV(msg);
+
 		return kvList;
 	}
 

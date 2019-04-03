@@ -4,66 +4,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
-import java.net.SocketException;
-
-class NetTool {
-	/**
-	 * If an address can be used for public access
-	 * 
-	 * @param inetAddress
-	 *            an address
-	 * @return public or not
-	 */
-	private static boolean isPublic(InetAddress inetAddress) {
-		if (!inetAddress.isAnyLocalAddress()
-				&& !inetAddress.isLinkLocalAddress()
-				&& !inetAddress.isLoopbackAddress()
-				&& !inetAddress.isMCGlobal() && !inetAddress.isMCLinkLocal()
-				&& !inetAddress.isMCNodeLocal() && !inetAddress.isMCOrgLocal()
-				&& !inetAddress.isMCSiteLocal()
-				&& !inetAddress.isMulticastAddress()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Get the public address of this machine
-	 * 
-	 * @return public address
-	 */
-	public static String getPublicAddress() {
-		Enumeration<NetworkInterface> e;
-		try {
-			e = NetworkInterface.getNetworkInterfaces();
-			while (e.hasMoreElements()) {
-				Enumeration<InetAddress> addrs = e.nextElement()
-						.getInetAddresses();
-				while (addrs.hasMoreElements()) {
-					InetAddress inetAddress = (InetAddress) addrs.nextElement();
-					if (isPublic(inetAddress)
-							&& inetAddress instanceof Inet4Address) {
-						return inetAddress.getHostAddress();
-					}
-				}
-			}
-		} catch (SocketException e1) {
-			// TODO Auto-generated catch block
-			// System.out.println(e1.getMessage());
-		}
-
-		return null;
-	}
-}
 
 class KeyValueList {
 	// interal map for the message <property name, property value>, key and
@@ -95,10 +40,6 @@ class KeyValueList {
 		}
 		map.put(key, value);
 		return true;
-	}
-
-	public String removePair(String key) {
-		return map.remove(key);
 	}
 
 	// /*
@@ -136,9 +77,6 @@ class KeyValueList {
 	/*
 	 * encode the KeyValueList into a String
 	 */
-	/*
-	 * encode the KeyValueList into a String
-	 */
 	public String encodedString() {
 
 		StringBuilder builder = new StringBuilder();
@@ -149,6 +87,16 @@ class KeyValueList {
 		// X$$$Y$$$, minimum
 		builder.append(")");
 		return builder.toString();
+	}
+
+	public Msg encodedMsg(){
+		Msg msg = new Msg();
+		List<Item> items = new ArrayList<>();
+		for (Entry<String, String> entry : map.entrySet()) {
+			items.add(new Item(entry.getKey(), entry.getValue()));
+		}
+		msg.setItems(items);
+		return msg;
 	}
 
 	/*
@@ -176,12 +124,7 @@ class KeyValueList {
 	 * get the property value based on property name
 	 */
 	public String getValue(String key) {
-		String value = map.get(key);
-		if (value != null) {
-			return value;
-		}else{
-			return "";
-		}
+		return map.get(key);
 	}
 
 	/*
@@ -189,6 +132,68 @@ class KeyValueList {
 	 */
 	public int size() {
 		return map.size();
+	}
+
+	public List<String> tableOutput() {
+		Map<String, String> tempMap = new HashMap<>(map);
+		List<String> table = new ArrayList<>();
+		String sc, mt, sd, rc, ro, na, ip, op, mn, au, nt, pp, dt;
+		if ((sc = tempMap.get("Scope")) != null) {
+			table.add("Scope " + sc);
+			tempMap.remove("Scope");
+		}
+		if ((mt = tempMap.get("MessageType")) != null) {
+			table.add("MessageType " + mt);
+			tempMap.remove("MessageType");
+		}
+		if ((sd = tempMap.get("Sender")) != null) {
+			table.add("Sender " + sd);
+			tempMap.remove("Sender");
+		}
+		if ((rc = tempMap.get("Receiver")) != null) {
+			table.add("Receiver " + rc);
+			tempMap.remove("Receiver");
+		}
+		if ((ro = tempMap.get("Role")) != null) {
+			table.add("Role " + ro);
+			tempMap.remove("Role");
+		}
+		if ((na = tempMap.get("Name")) != null) {
+			table.add("Name " + na);
+			tempMap.remove("Name");
+		}
+		if ((ip = tempMap.get("InputPath")) != null) {
+			table.add("InputPath " + ip);
+			tempMap.remove("InputPath");
+		}
+		if ((op = tempMap.get("OutputPath")) != null) {
+			table.add("OutputPath " + op);
+			tempMap.remove("OutputPath");
+		}
+		if ((mn = tempMap.get("MainComponent")) != null) {
+			table.add("MainComponent " + mn);
+			tempMap.remove("MainComponent");
+		}
+		if ((au = tempMap.get("AuxComponents")) != null) {
+			table.add("AuxComponents " + au);
+			tempMap.remove("AuxComponents");
+		}
+		if ((nt = tempMap.get("Note")) != null) {
+			table.add("Note " + nt);
+			tempMap.remove("Note");
+		}
+		if ((pp = tempMap.get("Purpose")) != null) {
+			table.add("Purpose " + pp);
+			tempMap.remove("Purpose");
+		}
+		if ((dt = tempMap.get("Date")) != null) {
+			table.add("Date " + dt);
+			tempMap.remove("Date");
+		}
+		for (Entry<String, String> entry : tempMap.entrySet()) {
+			table.add(entry.getKey() + " " + entry.getValue());
+		}
+		return table;
 	}
 
 	/*
@@ -228,7 +233,7 @@ class MsgEncoder {
 			return;
 		}
 
-		writer.println(kvList.encodedString());
+		writer.print(kvList.encodedString() + "\n");
 		writer.flush();
 	}
 }
