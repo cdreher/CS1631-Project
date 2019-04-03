@@ -157,7 +157,7 @@ public class ExtraGUIContent extends GridPane {
 			setServerIP("127.0.0.1");
 			setServerPort(PORT + "");
 			setRefreshRate("3000");
-			setScope("SIS");
+			setScope("SIS.Scope1");
 
 			dialog.getDialogPane().getButtonTypes()
 					.add(new ButtonType("OK", ButtonData.OK_DONE));
