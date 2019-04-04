@@ -146,6 +146,17 @@ public class Controller {
         information.appendText("\nConnecting to server....");
         connectToServer();
 
+        if(user.equals("admin")){
+
+        }
+        else{
+            userScene();
+        }
+
+    }
+
+    @Override
+    void userScene(){
 
     }
 
