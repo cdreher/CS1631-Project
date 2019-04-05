@@ -56,9 +56,7 @@ import java.net.*;
 
 public class Controller {
 
-    /*
-    FXML variables
-     */
+    // Variables for admin.fxml
     @FXML
     private VBox vbox;
 
@@ -86,6 +84,7 @@ public class Controller {
     @FXML
     private TextArea information;
 
+    // Variable for Vote.fxml
     @FXML
     private TitledPane messagesTitle;
 
@@ -240,15 +239,18 @@ public class Controller {
         Hashtable<String, String> userTable = new Hashtable<String, String>();
         String user1 = "user1";
         String passcode = "password";
+        String admin_user = "admin";
+        String admin_passcode = "1234";
         userTable.put(user1,passcode);
+        userTable.put(admin_user, admin_passcode);
 
         information.setText("Checking the passcode...");
         //if the password is correct, connect to the server
         information.appendText("\nConnecting to server....");
 
 
-        if (user.equals("admin")) {
-
+        if (user.equals(admin_user)) {
+          //terminateButton.setDisable(false);
         } else {
             if (pass.equals(userTable.get(user))) {
                 connectToServer();
@@ -261,6 +263,7 @@ public class Controller {
 
                 //we display the GUI
                 window.show();
+                //terminateButton.setDisable(false);
 
             } else {
                 information.appendText("\nInvalid user");
@@ -364,6 +367,33 @@ public class Controller {
 
     public void handlerMessagesHintExit() {
         messagesTitle.setText("Message(s)");
+    }
+
+    @FXML
+    public void handlerTerminate(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void handlerVote() throws Exception{
+      // try to establish a connection to SISServer
+      universal = connect();
+
+      //bind the message writer to outputstream of the socket
+      encoder = new MsgEncoder(universal.getOutputStream());
+
+
+      KeyValueList reg = new KeyValueList();
+
+      reg.putPair("Scope", "SIS.Scope1");
+      reg.putPair("MessageType", "701");
+      reg.putPair("VoterPhoneNo", phoneNum.getText());
+      reg.putPair("CandidateID", candID.getText());
+      reg.putPair("Sender", "SISServer");
+      reg.putPair("Receiver", "Compo");
+      encoder.sendMsg(reg);
+
+      infoArea.appendText("Vote has been cast!\n");
     }
 
 
