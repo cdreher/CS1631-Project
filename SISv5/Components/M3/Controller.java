@@ -370,8 +370,25 @@ public class Controller {
     }
 
     @FXML
-    public void handlerTerminate(ActionEvent event) {
+    public void handlerTerminate() throws Exception {
+      // try to establish a connection to SISServer
+      universal = connect();
 
+      //bind the message writer to outputstream of the socket
+      encoder = new MsgEncoder(universal.getOutputStream());
+
+
+      KeyValueList reg = new KeyValueList();
+
+      reg.putPair("Scope", "SIS.Scope1");
+      reg.putPair("MessageType", "25");
+      reg.putPair("Passcode", "1234");
+      reg.putPair("SecurityLevel", "3");
+      reg.putPair("Sender", "SISServer");
+      reg.putPair("Receiver", "Compo");
+      encoder.sendMsg(reg);
+
+      infoArea.appendText("Voting has been terminated! Awaiting results...\n");
     }
 
     @FXML
