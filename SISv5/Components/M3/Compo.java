@@ -198,7 +198,7 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "21");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "SIS Remote");
+                  back.putPair("Receiver", "Voting GUI");
                   encoder.sendMsg(back);
 
                   System.out.println("VotingSoftware created successfully.\n");
@@ -226,7 +226,7 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "25");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "SIS Remote");
+                  back.putPair("Receiver", "Voting GUI");
                   encoder.sendMsg(back);
 
                   System.exit(0);
@@ -247,7 +247,7 @@ public class Compo {
                     back.putPair("Scope", SCOPE);
                     back.putPair("MessageType", "711");
                     back.putPair("Sender",NAME);
-                    back.putPair("Receiver", "SIS Remote");
+                    back.putPair("Receiver", "Voting GUI");
                     back.putPair("Status", "2");
                     encoder.sendMsg(back);
                     System.out.println("Invalid candidate. Vote is not counted.\n");
@@ -263,7 +263,7 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "711");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "SIS Remote");
+                  back.putPair("Receiver", "Voting GUI");
                   back.putPair("Status", "1");
                   encoder.sendMsg(back);
                 }
@@ -289,7 +289,7 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "711");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "SIS Remote");
+                  back.putPair("Receiver", "Voting GUI");
                   back.putPair("Status", "3");
                   encoder.sendMsg(back);
 

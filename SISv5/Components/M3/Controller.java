@@ -127,25 +127,6 @@ public class Controller {
     private Dialog<String> dialog = new Dialog<>();
 
     /*
-    end of FXML variables
-     */
-
-
-    /*
-    other variables
-     */
-
-    //table for storing the user accounts
-
-
-    /*
-    end of other variables
-     */
-
-
-
-
-    /*
     Network Variables
      */
 
@@ -163,6 +144,8 @@ public class Controller {
     private String SCOPE = "SIS.Scope1";
 
     private int port = 53217;
+
+    private boolean runProcessMsg;
 
     private Socket connect() throws Exception {
         Socket socket = new Socket("127.0.0.1", port);
@@ -396,9 +379,27 @@ public class Controller {
       // try to establish a connection to SISServer
       universal = connect();
 
+      // bind the message reader to inputstream of the socket
+      decoder = new MsgDecoder(universal.getInputStream());
+
       //bind the message writer to outputstream of the socket
       encoder = new MsgEncoder(universal.getOutputStream());
 
+      runProcessMsg = true;
+
+      KeyValueList conn = new KeyValueList();
+      conn.putPair("Scope", SCOPE);
+      conn.putPair("MessageType", "Register");
+      conn.putPair("Role","Basic");
+      conn.putPair("Name", NAME);
+      encoder.sendMsg(conn);
+
+      conn = new KeyValueList();
+      conn.putPair("Scope", SCOPE);
+      conn.putPair("MessageType", "Connect");
+      conn.putPair("Role","Basic");
+      conn.putPair("Name", NAME);
+      encoder.sendMsg(conn);
 
       KeyValueList reg = new KeyValueList();
 
@@ -410,9 +411,151 @@ public class Controller {
       reg.putPair("Receiver", "Compo");
       encoder.sendMsg(reg);
 
-      infoArea.appendText("Vote has been cast!\n");
+      KeyValueList kvList;
+      while(runProcessMsg){
+          // attempt to read and decode a message, see MsgDecoder for details
+          try {
+            kvList = decoder.getMsg();
+            //process that message
+            ProcessMsg(kvList);
+          } catch (Exception e){
+              e.printStackTrace();
+          }
+      }
     }
 
+    private void ProcessMsg(KeyValueList kvList) throws Exception{
 
+        String sender = kvList.getValue("Sender");
+        String type = kvList.getValue("MessageType");
+        String receiver = kvList.getValue("Receiver");
+
+        switch(type){
+            case "711":
+              String status = kvList.getValue("Status");
+              if(status.equals("2")){
+                infoArea.appendText("Invalid candidate. Vote is not counted.\n");
+              }
+              else if(status.equals("1")){
+                infoArea.appendText("Vote can not be counted. This user has voted already.\n");
+              }
+              else {
+                infoArea.appendText("Your vote has been cast!\n");
+              }
+              runProcessMsg = false;
+              break;
+
+            // case "21":
+            //     if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
+            //       System.out.println("Admin successfully logged in.");
+            //       back = new KeyValueList();
+            //       back.putPair("Scope", SCOPE);
+            //       back.putPair("MessageType", "21");
+            //       back.putPair("Sender",NAME);
+            //       back.putPair("Receiver", "SIS Remote");
+            //       encoder.sendMsg(back);
+            //
+            //       System.out.println("VotingSoftware created successfully.\n");
+            //     }
+            //     else{
+            //       System.out.println("Admin password not correct.");
+            //     }
+            //
+            //     break;
+            //
+            // case "25":
+            //     if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
+            //       System.out.println("Admin successfully logged in.");
+            //       System.out.println("Voting has been terminated. The voting results are as follows:\n");
+            //
+            //       ArrayList<Map.Entry<String, Integer>> l = new ArrayList(tallyTable.entrySet());
+            //       Collections.sort(l, new Comparator<Map.Entry<String, Integer>>(){
+            //          public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+            //             return o2.getValue().compareTo(o1.getValue());
+            //         }});
+            //
+            //       System.out.println(l);
+            //
+            //       back = new KeyValueList();
+            //       back.putPair("Scope", SCOPE);
+            //       back.putPair("MessageType", "25");
+            //       back.putPair("Sender",NAME);
+            //       back.putPair("Receiver", "SIS Remote");
+            //       encoder.sendMsg(back);
+            //
+            //       System.exit(0);
+            //     }
+            //     break;
+            //
+            // case "701":
+            //     boolean voterHasVoted;
+            //
+            //     //If voterTable does NOT contain VoterPhoneNo key yet.
+            //     if(!voterTable.containsKey(kvList.getValue("VoterPhoneNo"))){
+            //       if(candidateList.contains(kvList.getValue("CandidateID"))){
+            //         voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
+            //         voterHasVoted = false;
+            //       }
+            //       else{
+            //         back = new KeyValueList();
+            //         back.putPair("Scope", SCOPE);
+            //         back.putPair("MessageType", "711");
+            //         back.putPair("Sender",NAME);
+            //         back.putPair("Receiver", "SIS Remote");
+            //         back.putPair("Status", "2");
+            //         encoder.sendMsg(back);
+            //         System.out.println("Invalid candidate. Vote is not counted.\n");
+            //         voterHasVoted = true;
+            //       }
+            //
+            //     }
+            //     //If voterTable DOES contain VoterPhoneNo.
+            //     else {
+            //       System.out.println("Vote can not be counted. This user has voted already.\n");
+            //       voterHasVoted = true;
+            //       back = new KeyValueList();
+            //       back.putPair("Scope", SCOPE);
+            //       back.putPair("MessageType", "711");
+            //       back.putPair("Sender",NAME);
+            //       back.putPair("Receiver", "SIS Remote");
+            //       back.putPair("Status", "1");
+            //       encoder.sendMsg(back);
+            //     }
+            //
+            //     if(!voterHasVoted){
+            //       //If tallyTable does NOT contain CandidateID key yet.
+            //       if(!tallyTable.containsKey(kvList.getValue("CandidateID"))){
+            //         tallyTable.put(kvList.getValue("CandidateID"), 1);
+            //       }
+            //       //If tallyTable DOES contain CandidateID.
+            //       else {
+            //         Integer n = tallyTable.get(kvList.getValue("CandidateID"));
+            //         n++;
+            //         tallyTable.replace(kvList.getValue("CandidateID"), n);
+            //       }
+            //
+            //       Integer n = tallyTable.get(kvList.getValue("CandidateID"));
+            //       System.out.println("vote count: " + n);
+            //
+            //       System.out.println("Your vote has been cast!\n");
+            //
+            //       back = new KeyValueList();
+            //       back.putPair("Scope", SCOPE);
+            //       back.putPair("MessageType", "711");
+            //       back.putPair("Sender",NAME);
+            //       back.putPair("Receiver", "SIS Remote");
+            //       back.putPair("Status", "3");
+            //       encoder.sendMsg(back);
+            //
+            //     }
+            //     break;
+            //
+            // case "Confirm":
+            //     System.out.println("Successfully connect to SISServer");
+            //     break;
+        }
+
+
+    }
 
 }
