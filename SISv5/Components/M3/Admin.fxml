@@ -95,6 +95,7 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Button fx:id="terminateButton" mnemonicParsing="false" onAction="#handlerTerminate" text="Terminate Voting" />
                </children>
             </VBox>
             <TextArea fx:id="infoArea" layoutY="330.0" prefHeight="216.0" prefWidth="591.0" />

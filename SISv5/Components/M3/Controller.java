@@ -228,25 +228,34 @@ public class Controller {
         userTable.put(admin_user, admin_passcode);
 
         information.setText("Checking the passcode...");
-        //if the password is correct, connect to the server
-        information.appendText("\nConnecting to server....");
-
 
         if (user.equals(admin_user)) {
-          //terminateButton.setDisable(false);
+          //if the password is correct, connect to the server
+          information.appendText("\nConnecting to server....");
+          connectToServer();
+          Stage window;
+          window = (Stage) logButton.getScene().getWindow();
+          Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
+          Scene voteScene = new Scene(root,950,600);
+          window.setScene(voteScene);
+          window.setTitle("Welcome to Voting System");
+
+          //we display the GUI
+          window.show();
         } else {
             if (pass.equals(userTable.get(user))) {
-                connectToServer();
-                Stage window;
-                window = (Stage) logButton.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("Vote.fxml"));
-                Scene voteScene = new Scene(root,950,600);
-                window.setScene(voteScene);
-                window.setTitle("Welcome to Voting System");
+              //if the password is correct, connect to the server
+              information.appendText("\nConnecting to server....");
+              connectToServer();
+              Stage window;
+              window = (Stage) logButton.getScene().getWindow();
+              Parent root = FXMLLoader.load(getClass().getResource("Vote.fxml"));
+              Scene voteScene = new Scene(root,950,600);
+              window.setScene(voteScene);
+              window.setTitle("Welcome to Voting System");
 
-                //we display the GUI
-                window.show();
-                //terminateButton.setDisable(false);
+              //we display the GUI
+              window.show();
 
             } else {
                 information.appendText("\nInvalid user");
