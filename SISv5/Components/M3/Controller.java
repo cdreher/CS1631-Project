@@ -76,7 +76,7 @@ public class Controller {
     private TextField username;
 
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     private Button logButton;
@@ -242,7 +242,7 @@ public class Controller {
 
             //print out the connect message
             information.appendText("\nSuccessfully Connected!");
-            Parent root = FXMLLoader.load(getClass().getResource("Vote.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
             Scene voteScene = new Scene(root, 950, 600);
             window.setScene(voteScene);
             window.setTitle("Welcome to Voting System");
@@ -464,6 +464,7 @@ public class Controller {
         reg.putPair("Receiver", "Compo");
         encoder.sendMsg(reg);
 
+        runProcessMsg = true;
         KeyValueList kvList;
         while (runProcessMsg) {
             // attempt to read and decode a message, see MsgDecoder for details
