@@ -295,6 +295,19 @@ public class Controller {
                 e.printStackTrace();
             }
         }
+
+        runProcessMsg = true;
+        KeyValueList kvList;
+        while (runProcessMsg) {
+            // attempt to read and decode a message, see MsgDecoder for details
+            try {
+                kvList = decoder.getMsg();
+                //process that message
+                ProcessMsg(kvList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -438,6 +451,7 @@ public class Controller {
     }
 
     @FXML
+
     public void handlerVote() throws Exception {
         connectToServer();
         KeyValueList reg = new KeyValueList();
@@ -559,115 +573,14 @@ public class Controller {
                 }
                 runProcessMsg = false;
                 break;
-
-            // case "21":
-            //     if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
-            //       System.out.println("Admin successfully logged in.");
-            //       back = new KeyValueList();
-            //       back.putPair("Scope", SCOPE);
-            //       back.putPair("MessageType", "21");
-            //       back.putPair("Sender",NAME);
-            //       back.putPair("Receiver", "SIS Remote");
-            //       encoder.sendMsg(back);
-            //
-            //       System.out.println("VotingSoftware created successfully.\n");
-            //     }
-            //     else{
-            //       System.out.println("Admin password not correct.");
-            //     }
-            //
-            //     break;
-            //
-            // case "25":
-            //     if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
-            //       System.out.println("Admin successfully logged in.");
-            //       System.out.println("Voting has been terminated. The voting results are as follows:\n");
-            //
-            //       ArrayList<Map.Entry<String, Integer>> l = new ArrayList(tallyTable.entrySet());
-            //       Collections.sort(l, new Comparator<Map.Entry<String, Integer>>(){
-            //          public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-            //             return o2.getValue().compareTo(o1.getValue());
-            //         }});
-            //
-            //       System.out.println(l);
-            //
-            //       back = new KeyValueList();
-            //       back.putPair("Scope", SCOPE);
-            //       back.putPair("MessageType", "25");
-            //       back.putPair("Sender",NAME);
-            //       back.putPair("Receiver", "SIS Remote");
-            //       encoder.sendMsg(back);
-            //
-            //       System.exit(0);
-            //     }
-            //     break;
-            //
-            // case "701":
-            //     boolean voterHasVoted;
-            //
-            //     //If voterTable does NOT contain VoterPhoneNo key yet.
-            //     if(!voterTable.containsKey(kvList.getValue("VoterPhoneNo"))){
-            //       if(candidateList.contains(kvList.getValue("CandidateID"))){
-            //         voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
-            //         voterHasVoted = false;
-            //       }
-            //       else{
-            //         back = new KeyValueList();
-            //         back.putPair("Scope", SCOPE);
-            //         back.putPair("MessageType", "711");
-            //         back.putPair("Sender",NAME);
-            //         back.putPair("Receiver", "SIS Remote");
-            //         back.putPair("Status", "2");
-            //         encoder.sendMsg(back);
-            //         System.out.println("Invalid candidate. Vote is not counted.\n");
-            //         voterHasVoted = true;
-            //       }
-            //
-            //     }
-            //     //If voterTable DOES contain VoterPhoneNo.
-            //     else {
-            //       System.out.println("Vote can not be counted. This user has voted already.\n");
-            //       voterHasVoted = true;
-            //       back = new KeyValueList();
-            //       back.putPair("Scope", SCOPE);
-            //       back.putPair("MessageType", "711");
-            //       back.putPair("Sender",NAME);
-            //       back.putPair("Receiver", "SIS Remote");
-            //       back.putPair("Status", "1");
-            //       encoder.sendMsg(back);
-            //     }
-            //
-            //     if(!voterHasVoted){
-            //       //If tallyTable does NOT contain CandidateID key yet.
-            //       if(!tallyTable.containsKey(kvList.getValue("CandidateID"))){
-            //         tallyTable.put(kvList.getValue("CandidateID"), 1);
-            //       }
-            //       //If tallyTable DOES contain CandidateID.
-            //       else {
-            //         Integer n = tallyTable.get(kvList.getValue("CandidateID"));
-            //         n++;
-            //         tallyTable.replace(kvList.getValue("CandidateID"), n);
-            //       }
-            //
-            //       Integer n = tallyTable.get(kvList.getValue("CandidateID"));
-            //       System.out.println("vote count: " + n);
-            //
-            //       System.out.println("Your vote has been cast!\n");
-            //
-            //       back = new KeyValueList();
-            //       back.putPair("Scope", SCOPE);
-            //       back.putPair("MessageType", "711");
-            //       back.putPair("Sender",NAME);
-            //       back.putPair("Receiver", "SIS Remote");
-            //       back.putPair("Status", "3");
-            //       encoder.sendMsg(back);
-            //
-            //     }
-            //     break;
-            //
-            // case "Confirm":
-            //     System.out.println("Successfully connect to SISServer");
-            //     break;
+            case "25":
+                infoArea.appendText("Voting has been terminated! Awaiting results...\n");
+                runProcessMsg = false;
+                break;
+            case "21":
+                infoArea.appendText("VotingSoftware created successfully.\n");
+                runProcessMsg = false;
+                break;
         }
 
 
