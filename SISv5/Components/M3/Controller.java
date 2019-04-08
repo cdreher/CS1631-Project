@@ -119,6 +119,15 @@ public class Controller {
     private TextArea infoArea;
 
     @FXML
+    private TextField requestN;
+
+    @FXML
+    private Button requestButton;
+
+    @FXML
+    private PasswordField requestPass;
+
+    @FXML
     private Stage primaryStage;
 
     private ObservableList<Message> data = FXCollections
@@ -450,13 +459,21 @@ public class Controller {
     public void handlerTerminate() throws Exception {
         connectToServer();
         infoArea.appendText("Voting has been terminated! Awaiting results...\n");
+    }
 
-        KeyValueList kv = new KeyValueList();
-        kv.putPair("Scope", "SIS.Scope1");
-        kv.putPair("MessageType", "702");
-        kv.putPair("Sender", "Voting GUI");
-        kv.putPair("Receiver", "Compo");
-        encoder.sendMsg(kv);
+    @FXML
+    void handlerRequest() throws Exception {
+        connectToServer();
+
+        KeyValueList reg = new KeyValueList();
+
+        reg.putPair("Scope", "SIS.Scope1");
+        reg.putPair("MessageType", "702");
+        reg.putPair("Passcode", requestPass.getText());
+        reg.putPair("N", requestN.getText());
+        reg.putPair("Sender", NAME);
+        reg.putPair("Receiver", "Compo");
+        encoder.sendMsg(reg);
 
         runProcessMsg = true;
         KeyValueList kvList;
@@ -605,14 +622,9 @@ public class Controller {
                 runProcessMsg = false;
                 break;
             case "712":
-            infoArea.appendText("Got the reoport\n");
-            infoArea.appendText("Now sending to the TrendAnalyzer");
-
-            KeyValueList kv = new KeyValueList();
-            kv.putPair("Scope", "SIS.Scope1");
-            kv.putPair("MessageType", "sendReport");
-            kv.putPair("Sender", "Voting GUI");
-            kv.putPair("Receiver", "Compo");
+            String report = kvList.getValue("RankedReport");
+            infoArea.appendText("Getting RankedReport:\n");
+            infoArea.appendText(report + "\n");
 
             runProcessMsg = false;
             break;
