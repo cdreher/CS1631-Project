@@ -16,7 +16,7 @@ import java.util.TimerTask;
 import java.util.Hashtable;
 import java.util.*;
 
-public class TA_Compo {
+public class TrendCompo {
 
     //socket for connection to SISServer
     static Socket universal;
@@ -30,7 +30,7 @@ public class TA_Compo {
     private static final String SCOPE = "SIS.Scope1";
 
     //name of this component
-    private static final String NAME = "TA_Compo";
+    private static final String NAME = "TrendCompo";
 
     //messages types that can be handled by this component
     private static final List<String> TYPES = new ArrayList<String>(
@@ -132,6 +132,7 @@ public class TA_Compo {
         }
 
 
+
     }
 
 
@@ -166,7 +167,6 @@ public class TA_Compo {
         {
             return;
         }
-
         String messageType = kvList.getValue("MessageType");
         if(!TYPES.contains(messageType))
         {
@@ -189,86 +189,28 @@ public class TA_Compo {
         back.putPair("Name", NAME);
         encoder.sendMsg(back);
 
-
-
         switch(type){
-            case "666":
-                if((kvList.getValue("CandidateID"))
-                
+            case "25":
+                String all_posters;
+                all_posters= kvList.getValue("CandidateID");
+                System.out.println(all_posters + " \n");
+                System.out.println("Poster IDs received.");
 
-
-                
-
-
-                boolean voterHasVoted;
-
-                //If voterTable does NOT contain VoterPhoneNo key yet.
-                if(!voterTable.containsKey(kvList.getValue("VoterPhoneNo"))){
-                  if(candidateList.contains(kvList.getValue("CandidateID"))){
-                    voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
-                    voterHasVoted = false;
-                  }
-                  else{
-                    back = new KeyValueList();
-                    back.putPair("Scope", SCOPE);
-                    back.putPair("MessageType", "711");
-                    back.putPair("Sender",NAME);
-                    back.putPair("Receiver", "SIS Remote");
-                    back.putPair("Status", "2");
-                    encoder.sendMsg(back);
-                    System.out.println("Invalid candidate. Vote is not counted.\n");
-                    voterHasVoted = true;
-                  }
-
-                }
-                //If voterTable DOES contain VoterPhoneNo.
-                else {
-                  System.out.println("Vote can not be counted. This user has voted already.\n");
-                  voterHasVoted = true;
-                  back = new KeyValueList();
-                  back.putPair("Scope", SCOPE);
-                  back.putPair("MessageType", "711");
-                  back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "SIS Remote");
-                  back.putPair("Status", "1");
-                  encoder.sendMsg(back);
-                }
-
-                if(!voterHasVoted){
-
-                    //create voter list. add into voter dict
-                    //nevermind. use tallytable directly
-
-                  //If tallyTable does NOT contain CandidateID key yet.
-                  if(!tallyTable.containsKey(kvList.getValue("CandidateID"))){
-                    tallyTable.put(kvList.getValue("CandidateID"), 1);
-                  }
-                  //If tallyTable DOES contain CandidateID.
-                  else {
-                    Integer n = tallyTable.get(kvList.getValue("CandidateID"));
-                    n++;
-                    tallyTable.replace(kvList.getValue("CandidateID"), n);
-                  }
-
-                  Integer n = tallyTable.get(kvList.getValue("CandidateID"));
-                  System.out.println("vote count: " + n);
-
-                  System.out.println("Your vote has been cast!\n");
-
-                  back = new KeyValueList();
-                  back.putPair("Scope", SCOPE);
-                  back.putPair("MessageType", "711");
-                  back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "SIS Remote");
-                  back.putPair("Status", "3");
-                  encoder.sendMsg(back);
-
-                }
+                /*
+                back = new KeyValueList();
+                back.putPair("Scope", SCOPE);
+                back.putPair("MessageType", "666");
+                back.putPair("Sender",NAME);
+                back.putPair("Receiver", "PrjGUI");
+                encoder.sendMsg(back);
+                */   
                 break;
 
             case "Confirm":
                 System.out.println("Successfully connect to SISServer");
                 break;
+
+
         }
 
 

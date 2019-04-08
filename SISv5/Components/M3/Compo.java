@@ -167,7 +167,6 @@ public class Compo {
         {
             return;
         }
-
         String messageType = kvList.getValue("MessageType");
         if(!TYPES.contains(messageType))
         {
@@ -226,7 +225,10 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "25");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "Voting GUI");
+
+                  back.putPair("CandidateID",tallyTable.toString());
+
+                  back.putPair("Receiver", "TrendCompo");
                   encoder.sendMsg(back);
 
                   System.exit(0);
@@ -240,7 +242,9 @@ public class Compo {
                 if(!voterTable.containsKey(kvList.getValue("VoterPhoneNo"))){
                   if(candidateList.contains(kvList.getValue("CandidateID"))){
                     voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
+
                     voterHasVoted = false;
+                    
                   }
                   else{
                     back = new KeyValueList();
@@ -294,11 +298,31 @@ public class Compo {
                   encoder.sendMsg(back);
 
                 }
+
                 break;
+
+            case "702":
+            System.out.println("Sending the report");
+            back = new KeyValueList();
+            back.putPair("MessageType","712");
+            back.putPair("Receiver", "Voting GUI");
+            back.putPair("Sender",NAME);
+            back.putPair("Scope", SCOPE);
+            encoder.sendMsg(back);
+            break;
+
+            case "sendReport":
+            //send data to TrendAnalyzer
+
+            //using https://javarevisited.blogspot.com/2011/12/how-to-traverse-or-loop-hashmap-in-java.html to get from Hashtable
+            //loop it over and encode the data into message
+            break;
 
             case "Confirm":
                 System.out.println("Successfully connect to SISServer");
                 break;
+
+
         }
 
 
