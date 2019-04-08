@@ -296,9 +296,16 @@ public class Compo {
                 }
                 break;
 
+            case "702":
+
+            break;
+
             case "Confirm":
                 System.out.println("Successfully connect to SISServer");
                 break;
+
+                default:
+
         }
 
 

@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="546.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<GridPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="546.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <columnConstraints>
       <ColumnConstraints hgrow="NEVER" maxWidth="463.0" minWidth="-Infinity" prefWidth="306.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="739.0" minWidth="10.0" prefWidth="597.0" />
@@ -60,9 +60,10 @@
       </Accordion>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
          <children>
-            <VBox prefHeight="348.0" prefWidth="591.0">
+            <VBox alignment="TOP_CENTER" prefHeight="348.0" prefWidth="591.0">
                <children>
                   <Region prefHeight="91.0" prefWidth="591.0" />
+                  <Label text="Admin Voting System" />
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -88,7 +89,7 @@
                               <TextField fx:id="candID" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="castButton" mnemonicParsing="false" onAction="#handlerVote" text="Cast Vote" />
                            </children>
@@ -98,7 +99,7 @@
                   <Button fx:id="terminateButton" mnemonicParsing="false" onAction="#handlerTerminate" text="Terminate Voting" />
                </children>
             </VBox>
-            <TextArea fx:id="infoArea" layoutY="330.0" prefHeight="216.0" prefWidth="591.0" />
+            <TextArea fx:id="infoArea" layoutY="346.0" prefHeight="200.0" prefWidth="591.0" />
          </children>
       </Pane>
    </children>
