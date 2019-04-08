@@ -294,6 +294,11 @@ public class SISTask implements Runnable {
                 SISHandlers.MsgHandler(scope, sender, receiver, direction,
                         broadcast, kvList);
                 break;
+
+                case "sendReport":
+                    SISHandlers.MsgHandler(scope, sender, receiver, direction,
+                            broadcast, kvList);
+                    break;
         default:
             break;
         }
