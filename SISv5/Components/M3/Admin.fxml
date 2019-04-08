@@ -47,7 +47,7 @@
                            </padding>
                            <children>
                               <ListView fx:id="messages" onMouseEntered="#handlerMessagesHint" onMouseExited="#handlerMessagesHintExit" prefWidth="200.0" GridPane.columnSpan="3" />
-                              <Button fx:id="send" disable="true" mnemonicParsing="false" onMouseClicked="#handlerSend" text="Send" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Button fx:id="send" mnemonicParsing="false" onMouseClicked="#handlerSend" text="Send" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                               <Button fx:id="load" mnemonicParsing="false" onMouseClicked="#handlerLoad" text="Load" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                               <Button fx:id="clear" mnemonicParsing="false" onMouseClicked="#handlerClear" text="Clear" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                            </children>

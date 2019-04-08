@@ -19,6 +19,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Paths;
 
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -401,10 +402,9 @@ public class Controller {
                     loadOneXML(file, null);
                 } else if (extension.endsWith(".txt")) {
                     try {
-                        List<String> paths = Files.readAllLines(FileSystems
-                                .getDefault().getPath(file.getAbsolutePath()));
+                        List<String> paths = Files.readAllLines(Paths.get(file.getAbsolutePath()));
                         for (String p : paths) {
-                            File temp = new File(p);
+                            File temp = new File(file.getAbsoluteFile().getParent() + p);
                             String ext = temp.getName().toLowerCase();
                             if (ext.endsWith(".xml")) {
                                 loadOneXML(temp, null);
