@@ -192,11 +192,11 @@ public class TrendCompo {
 
         switch(type){
             case "25": // NEED TO CHANGE BACK TO 25
-                 
+
                 String all_posters= kvList.getValue("CandidateID");
                 System.out.println(all_posters + " \n");
                 System.out.println("Poster IDs received.");
-                
+
 
 
                 //Subjects
@@ -206,7 +206,7 @@ public class TrendCompo {
                 //004 - History
                 //005 - Philosophy
                 //006 - Science
-                
+
                 all_posters = all_posters.replace("}","");
                 all_posters = all_posters.replace("{","");
                 all_posters = all_posters.replace(" ","");
@@ -227,7 +227,7 @@ public class TrendCompo {
                     String [] sep_tokens = t.split("=");
                     // for(String t2: sep_tokens){
                         for(int i = 0; i<sep_tokens.length; i++)
-                        {   
+                        {
                             if(sep_tokens[i].equals("AI"))
                             {
                                 AITotal += Integer.parseInt(sep_tokens[i+1]);
@@ -262,7 +262,7 @@ public class TrendCompo {
                         //System.out.println("sep: " + t2);
                     // }
                 }
-                
+
                 //for this year, rank the subjects - which is more popular than another
 
                 DecimalFormat df = new DecimalFormat("##.##");
@@ -274,52 +274,51 @@ public class TrendCompo {
                 System.out.println("Votes for Music: " + df.format((MusicTotal/total*100)) +"%");
                 System.out.println("Votes for Philosophy: " + df.format((PhilosophyTotal/total*100)) +"%");
                 System.out.println("Votes for Science: " + df.format((ScienceTotal/total*100)) +"%");
-                
+
 
                 //load multiple years of data - predict trend
-
+                double pastTotal = 0;
                 try{
-                    file = new File("pastyear1.txt");
-                    reader = new BufferedReader(new FileReader(file));
+                    File file = new File("pastyear1.txt");
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
                     String text = null;
                     String [] split;
-                    int pastTotal = 0;
-                    while((text = reader.readline()) != null){
+                    while((text = reader.readLine()) != null){
                         split = text.split(",");
                         //checks each line to see which category total it should add to
-                        if(split[0] == 001)
+                        if(split[0].equals("001"))
                         {
                             AITotal += Integer.parseInt(split[1]);
                             pastTotal += Integer.parseInt(split[1]);
                         }
-                        if(split[0] == 002)
+                        if(split[0].equals("002"))
                         {
                             LiteratureTotal += Integer.parseInt(split[1]);
                             pastTotal += Integer.parseInt(split[1]);
                         }
-                        if(split[0] == 003)
+                        if(split[0].equals("003"))
                         {
                             MathTotal += Integer.parseInt(split[1]);
                             pastTotal += Integer.parseInt(split[1]);
                         }
-                        if(split[0] == 004)
+                        if(split[0].equals("004"))
                         {
                             MusicTotal += Integer.parseInt(split[1]);
                             pastTotal += Integer.parseInt(split[1]);
                         }
-                        if(split[0] == 005)
+                        if(split[0].equals("005"))
                         {
                             PhilosophyTotal += Integer.parseInt(split[1]);
                             pastTotal += Integer.parseInt(split[1]);
                         }
-                        if(split[0] == 006)
+                        if(split[0].equals("006"))
                         {
                             ScienceTotal += Integer.parseInt(split[1]);
                             pastTotal += Integer.parseInt(split[1]);
                         }
                     }
                 }
-                catch(FileNotFoundException e){
+                catch(Exception e){
                     e.printStackTrace();
                 }
 
@@ -342,7 +341,7 @@ public class TrendCompo {
                 back.putPair("Sender",NAME);
                 back.putPair("Receiver", "PrjGUI");
                 encoder.sendMsg(back);
-                */   
+                */
                 break;
 
             case "Confirm":
