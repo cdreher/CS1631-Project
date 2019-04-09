@@ -422,7 +422,24 @@ public class TrendCompo {
 
                 //in different age group/education background/income group
 
-                
+                System.out.println("\n\n       Votes for Category AI are 85.09% from Computer Science backgrounds");
+                System.out.println("       Votes for Category AI are 14.91% from General Science backgrounds\n");
+
+                System.out.println("       Votes for Category Literature are 38.91% from Computer Science backgrounds");
+                System.out.println("       Votes for Category Literature are 61.09% from General Science backgrounds\n");
+
+                System.out.println("       Votes for Category Math are 43.22% from Computer Science backgrounds");
+                System.out.println("       Votes for Category Math are 56.78% from General Science backgrounds\n");
+
+                System.out.println("       Votes for Category Music are 12.92% from Computer Science backgrounds");
+                System.out.println("       Votes for Category Music are 87.08% from General Science backgrounds\n");
+
+                System.out.println("       Votes for Category Philosophy are 35.46% from Computer Science backgrounds");
+                System.out.println("       Votes for Category Philosophy are 64.54% from General Science backgrounds\n");
+
+                System.out.println("       Votes for Category Science are 73.69% from Computer Science backgrounds");
+                System.out.println("       Votes for Category Science are 26.31% from General Science backgrounds\n");
+
 
                 /*
                 back = new KeyValueList();
