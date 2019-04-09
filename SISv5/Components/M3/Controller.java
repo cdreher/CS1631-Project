@@ -459,6 +459,16 @@ public class Controller {
     public void handlerTerminate() throws Exception {
         connectToServer();
         infoArea.appendText("Voting has been terminated! Awaiting results...\n");
+
+        KeyValueList back = new KeyValueList();
+        back.putPair("Scope", "SIS.Scope1");
+        back.putPair("MessageType", "25");
+        back.putPair("Passcode", "1234");
+        back.putPair("SecurityLevel", "3");
+        back.putPair("Sender",NAME);
+        back.putPair("Receiver", "Compo");
+        encoder.sendMsg(back);
+
     }
 
     @FXML
@@ -615,6 +625,7 @@ public class Controller {
                 break;
             case "25":
                 infoArea.appendText("Voting has been terminated! Awaiting results...\n");
+
                 runProcessMsg = false;
                 break;
             case "21":
@@ -635,3 +646,9 @@ public class Controller {
     }
 
 }
+
+
+
+
+
+

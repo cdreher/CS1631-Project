@@ -16,7 +16,7 @@ import java.util.TimerTask;
 import java.util.Hashtable;
 import java.util.*;
 
-public class Compo {
+public class TA_Compo {
 
     //socket for connection to SISServer
     static Socket universal;
@@ -30,7 +30,7 @@ public class Compo {
     private static final String SCOPE = "SIS.Scope1";
 
     //name of this component
-    private static final String NAME = "Compo";
+    private static final String NAME = "TA_Compo";
 
     //messages types that can be handled by this component
     private static final List<String> TYPES = new ArrayList<String>(
@@ -132,7 +132,6 @@ public class Compo {
         }
 
 
-
     }
 
 
@@ -167,6 +166,7 @@ public class Compo {
         {
             return;
         }
+
         String messageType = kvList.getValue("MessageType");
         if(!TYPES.contains(messageType))
         {
@@ -189,69 +189,31 @@ public class Compo {
         back.putPair("Name", NAME);
         encoder.sendMsg(back);
 
+
+
         switch(type){
-            case "21":
-                if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
-                  System.out.println("Admin successfully logged in.");
-                  back = new KeyValueList();
-                  back.putPair("Scope", SCOPE);
-                  back.putPair("MessageType", "21");
-                  back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "Voting GUI");
-                  encoder.sendMsg(back);
+            case "666":
+                if((kvList.getValue("CandidateID"))
+                
 
-                  System.out.println("VotingSoftware created successfully.\n");
-                }
-                else{
-                  System.out.println("Admin password not correct.");
-                }
 
-                break;
+                
 
-            case "25":
-                if(adminPassword.equals(kvList.getValue("Passcode")) && securityLevel.equals(kvList.getValue("SecurityLevel"))){
-                  System.out.println("Admin successfully logged in.");
-                  System.out.println("Voting has been terminated. The voting results are as follows:\n");
 
-                  ArrayList<Map.Entry<String, Integer>> l = new ArrayList(tallyTable.entrySet());
-                  Collections.sort(l, new Comparator<Map.Entry<String, Integer>>(){
-                     public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                        return o2.getValue().compareTo(o1.getValue());
-                    }});
-
-                  System.out.println(l);
-
-                  back = new KeyValueList();
-                  back.putPair("Scope", SCOPE);
-                  back.putPair("MessageType", "25");
-                  back.putPair("Sender",NAME);
-
-                  back.putPair("CandidateID",tallyTable.toString());
-
-                  back.putPair("Receiver", "TrendCompo");
-                  encoder.sendMsg(back);
-
-                  System.exit(0);
-                }
-                break;
-
-            case "701":
                 boolean voterHasVoted;
 
                 //If voterTable does NOT contain VoterPhoneNo key yet.
                 if(!voterTable.containsKey(kvList.getValue("VoterPhoneNo"))){
                   if(candidateList.contains(kvList.getValue("CandidateID"))){
                     voterTable.put(kvList.getValue("VoterPhoneNo"), kvList.getValue("CandidateID"));
-
                     voterHasVoted = false;
-
                   }
                   else{
                     back = new KeyValueList();
                     back.putPair("Scope", SCOPE);
                     back.putPair("MessageType", "711");
                     back.putPair("Sender",NAME);
-                    back.putPair("Receiver", "Voting GUI");
+                    back.putPair("Receiver", "SIS Remote");
                     back.putPair("Status", "2");
                     encoder.sendMsg(back);
                     System.out.println("Invalid candidate. Vote is not counted.\n");
@@ -267,12 +229,16 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "711");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "Voting GUI");
+                  back.putPair("Receiver", "SIS Remote");
                   back.putPair("Status", "1");
                   encoder.sendMsg(back);
                 }
 
                 if(!voterHasVoted){
+
+                    //create voter list. add into voter dict
+                    //nevermind. use tallytable directly
+
                   //If tallyTable does NOT contain CandidateID key yet.
                   if(!tallyTable.containsKey(kvList.getValue("CandidateID"))){
                     tallyTable.put(kvList.getValue("CandidateID"), 1);
@@ -293,65 +259,16 @@ public class Compo {
                   back.putPair("Scope", SCOPE);
                   back.putPair("MessageType", "711");
                   back.putPair("Sender",NAME);
-                  back.putPair("Receiver", "Voting GUI");
+                  back.putPair("Receiver", "SIS Remote");
                   back.putPair("Status", "3");
                   encoder.sendMsg(back);
 
                 }
-
                 break;
-
-            case "702":
-            System.out.println("Sending the report");
-            if(adminPassword.equals(kvList.getValue("Passcode"))){
-
-              ArrayList<Map.Entry<String, Integer>> l = new ArrayList(tallyTable.entrySet());
-              Collections.sort(l, new Comparator<Map.Entry<String, Integer>>(){
-                 public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                    return o2.getValue().compareTo(o1.getValue());
-                }});
-
-              int top = Integer.parseInt(kvList.getValue("N"));
-
-              Hashtable<String, Integer> report = new Hashtable<String, Integer>();
-
-              for (int i = 0; i < top; i++) {
-                if(i <= l.size()-1){
-                  report.put(l.get(i).getKey(), l.get(i).getValue());
-                }
-                else { break; }
-              }
-
-              back = new KeyValueList();
-              back.putPair("MessageType","712");
-              back.putPair("Receiver", "Voting GUI");
-              back.putPair("RankedReport", report.toString());
-              back.putPair("Sender",NAME);
-              back.putPair("Scope", SCOPE);
-              encoder.sendMsg(back);
-            }
-            else{
-              back = new KeyValueList();
-              back.putPair("MessageType","712");
-              back.putPair("Receiver", "Voting GUI");
-              back.putPair("RankedReport", "NULL");
-              back.putPair("Sender",NAME);
-              back.putPair("Scope", SCOPE);
-              encoder.sendMsg(back);
-            }            break;
-
-            case "sendReport":
-            //send data to TrendAnalyzer
-
-            //using https://javarevisited.blogspot.com/2011/12/how-to-traverse-or-loop-hashmap-in-java.html to get from Hashtable
-            //loop it over and encode the data into message
-            break;
 
             case "Confirm":
                 System.out.println("Successfully connect to SISServer");
                 break;
-
-
         }
 
 
