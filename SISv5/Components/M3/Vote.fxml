@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
@@ -56,13 +57,31 @@
                   </AnchorPane>
             </content>
           </TitledPane>
+            <TitledPane fx:id="messagesTitle1" expanded="false" layoutX="10.0" layoutY="10.0" text="Request Report">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="499.0" prefWidth="306.0">
+                           <children>
+                              <Label layoutX="41.0" layoutY="39.0" text="password" />
+                              <Label layoutX="62.0" layoutY="111.0" text="N" />
+                              <PasswordField fx:id="requestPass" layoutX="111.0" layoutY="34.0" />
+                              <TextField fx:id="requestN" layoutX="111.0" layoutY="106.0" />
+                              <Button fx:id="requestButton" layoutX="124.0" layoutY="272.0" mnemonicParsing="false" onAction="#handlerRequest" text="Request" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
         </panes>
       </Accordion>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
          <children>
-            <VBox prefHeight="348.0" prefWidth="591.0">
+            <VBox alignment="TOP_CENTER" prefHeight="348.0" prefWidth="591.0">
                <children>
                   <Region prefHeight="91.0" prefWidth="591.0" />
+                  <Label text="User Voting System" />
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -88,7 +107,7 @@
                               <TextField fx:id="candID" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="castButton" mnemonicParsing="false" onAction="#handlerVote" text="Cast Vote" />
                            </children>
@@ -97,7 +116,7 @@
                   </VBox>
                </children>
             </VBox>
-            <TextArea fx:id="infoArea" layoutY="330.0" prefHeight="216.0" prefWidth="591.0" />
+            <TextArea fx:id="infoArea" layoutY="346.0" prefHeight="200.0" prefWidth="591.0" />
          </children>
       </Pane>
    </children>

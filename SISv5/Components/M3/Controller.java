@@ -1,7 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
@@ -20,6 +19,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Paths;
 
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -29,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+/*
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -44,6 +45,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+*/
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -114,6 +117,15 @@ public class Controller {
 
     @FXML
     private TextArea infoArea;
+
+    @FXML
+    private TextField requestN;
+
+    @FXML
+    private Button requestButton;
+
+    @FXML
+    private PasswordField requestPass;
 
     @FXML
     private Stage primaryStage;
@@ -399,10 +411,9 @@ public class Controller {
                     loadOneXML(file, null);
                 } else if (extension.endsWith(".txt")) {
                     try {
-                        List<String> paths = Files.readAllLines(FileSystems
-                                .getDefault().getPath(file.getAbsolutePath()));
+                        List<String> paths = Files.readAllLines(Paths.get(file.getAbsolutePath()));
                         for (String p : paths) {
-                            File temp = new File(p);
+                            File temp = new File(file.getAbsoluteFile().getParent() + p);
                             String ext = temp.getName().toLowerCase();
                             if (ext.endsWith(".xml")) {
                                 loadOneXML(temp, null);
@@ -451,6 +462,34 @@ public class Controller {
     }
 
     @FXML
+    void handlerRequest() throws Exception {
+        connectToServer();
+
+        KeyValueList reg = new KeyValueList();
+
+        reg.putPair("Scope", "SIS.Scope1");
+        reg.putPair("MessageType", "702");
+        reg.putPair("Passcode", requestPass.getText());
+        reg.putPair("N", requestN.getText());
+        reg.putPair("Sender", NAME);
+        reg.putPair("Receiver", "Compo");
+        encoder.sendMsg(reg);
+
+        runProcessMsg = true;
+        KeyValueList kvList;
+        while (runProcessMsg) {
+            // attempt to read and decode a message, see MsgDecoder for details
+            try {
+                kvList = decoder.getMsg();
+                //process that message
+                ProcessMsg(kvList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
 
     public void handlerVote() throws Exception {
         connectToServer();
@@ -460,7 +499,7 @@ public class Controller {
         reg.putPair("MessageType", "701");
         reg.putPair("VoterPhoneNo", phoneNum.getText());
         reg.putPair("CandidateID", candID.getText());
-        reg.putPair("Sender", "SISServer");
+        reg.putPair("Sender", NAME);
         reg.putPair("Receiver", "Compo");
         encoder.sendMsg(reg);
 
@@ -582,7 +621,15 @@ public class Controller {
                 infoArea.appendText("VotingSoftware created successfully.\n");
                 runProcessMsg = false;
                 break;
+            case "712":
+            String report = kvList.getValue("RankedReport");
+            infoArea.appendText("Getting RankedReport:\n");
+            infoArea.appendText(report + "\n");
+
+            runProcessMsg = false;
+            break;
         }
+
 
 
     }

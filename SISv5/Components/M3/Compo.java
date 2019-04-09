@@ -294,11 +294,61 @@ public class Compo {
                   encoder.sendMsg(back);
 
                 }
+
                 break;
+
+            case "702":
+            System.out.println("Sending the report");
+            if(adminPassword.equals(kvList.getValue("Passcode"))){
+
+              ArrayList<Map.Entry<String, Integer>> l = new ArrayList(tallyTable.entrySet());
+              Collections.sort(l, new Comparator<Map.Entry<String, Integer>>(){
+                 public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    return o2.getValue().compareTo(o1.getValue());
+                }});
+
+              int top = Integer.parseInt(kvList.getValue("N"));
+
+              Hashtable<String, Integer> report = new Hashtable<String, Integer>();
+
+              for (int i = 0; i < top; i++) {
+                if(i <= l.size()-1){
+                  report.put(l.get(i).getKey(), l.get(i).getValue());
+                }
+                else { break; }
+              }
+
+              back = new KeyValueList();
+              back.putPair("MessageType","712");
+              back.putPair("Receiver", "Voting GUI");
+              back.putPair("RankedReport", report.toString());
+              back.putPair("Sender",NAME);
+              back.putPair("Scope", SCOPE);
+              encoder.sendMsg(back);
+            }
+            else{
+              back = new KeyValueList();
+              back.putPair("MessageType","712");
+              back.putPair("Receiver", "Voting GUI");
+              back.putPair("RankedReport", "NULL");
+              back.putPair("Sender",NAME);
+              back.putPair("Scope", SCOPE);
+              encoder.sendMsg(back);
+            }
+            break;
+
+            case "sendReport":
+            //send data to TrendAnalyzer
+
+            //using https://javarevisited.blogspot.com/2011/12/how-to-traverse-or-loop-hashmap-in-java.html to get from Hashtable
+            //loop it over and encode the data into message
+            break;
 
             case "Confirm":
                 System.out.println("Successfully connect to SISServer");
                 break;
+
+
         }
 
 
