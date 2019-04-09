@@ -17,6 +17,7 @@ import java.util.Hashtable;
 import java.util.*;
 import java.text.DecimalFormat;
 
+
 public class TrendCompo {
 
     //socket for connection to SISServer
@@ -194,8 +195,8 @@ public class TrendCompo {
             case "25": // NEED TO CHANGE BACK TO 25
 
                 String all_posters= kvList.getValue("CandidateID");
-                System.out.println(all_posters + " \n");
-                System.out.println("Poster IDs received.");
+                //System.out.println(all_posters + " \n");
+                System.out.println("\n       ***Poster IDs received***");
 
 
 
@@ -217,7 +218,7 @@ public class TrendCompo {
                 all_posters = all_posters.replace("005","Philosophy");
                 all_posters = all_posters.replace("006","Science");
 
-                System.out.println(all_posters + " \n");
+                //System.out.println(all_posters + " \n");
 
 
                 double AITotal =0,LiteratureTotal=0,MathTotal=0, MusicTotal=0,PhilosophyTotal=0,ScienceTotal=0;
@@ -238,7 +239,7 @@ public class TrendCompo {
                                 LiteratureTotal += Integer.parseInt(sep_tokens[i+1]);
                                 total += LiteratureTotal;
                             }
-                            if(sep_tokens[i].equals("MathTotal"))
+                            if(sep_tokens[i].equals("Math"))
                             {
                                 MathTotal += Integer.parseInt(sep_tokens[i+1]);
                                 total += MathTotal;
@@ -266,20 +267,46 @@ public class TrendCompo {
                 //for this year, rank the subjects - which is more popular than another
 
                 DecimalFormat df = new DecimalFormat("##.##");
+                
+                System.out.println("\n\n       Assumption that the Voting items are divided into the following categories:\n");
+                System.out.println("       AI");
+                System.out.println("       Literature");
+                System.out.println("       Math");
+                System.out.println("       Music");
+                System.out.println("       Philosophy");
+                System.out.println("       Science\n");
+                //System.out.println("================================");
 
-                System.out.println("\nPercentages from this year's voting - ");
-                System.out.println("Votes for AI: "+ df.format((AITotal/total*100))+"%");
-                System.out.println("Votes for Literature: " + df.format((LiteratureTotal/total*100))+"%");
-                System.out.println("Votes for Math: " + df.format((MathTotal/total*100))+"%");
-                System.out.println("Votes for Music: " + df.format((MusicTotal/total*100)) +"%");
-                System.out.println("Votes for Philosophy: " + df.format((PhilosophyTotal/total*100)) +"%");
-                System.out.println("Votes for Science: " + df.format((ScienceTotal/total*100)) +"%");
+
+                System.out.println("\n       TREND ANALYSIS RESULTS\n");
+                System.out.println("       ___________________________________________________");
+
+                System.out.println("       | Trends observed from this year's voting");
+                System.out.println("       |");
+
+                //System.out.println("       what is total : "+ total);
+
+                System.out.println("       | Votes for Category - AI         :"+ df.format((AITotal/total*100))+"%");
+                System.out.println("       | Votes for Category - Literature :" + df.format((LiteratureTotal/total*100))+"%");
+                System.out.println("       | Votes for Category - Math       :" + df.format((MathTotal/total*100))+"%");
+                System.out.println("       | Votes for Category - Music      :" + df.format((MusicTotal/total*100)) +"%");
+                System.out.println("       | Votes for Category - Philosophy :" + df.format((PhilosophyTotal/total*100)) +"%");
+                System.out.println("       | Votes for Category - Science    :" + df.format((ScienceTotal/total*100)) +"%");
+                System.out.println("       ___________________________________________________\n");
+
+                double AITotal_present_comparison = (AITotal/total*100);
+                double LiteratureTotal_present_comparison = (LiteratureTotal/total*100);
+                double MathTotal_present_comparison = (MathTotal/total*100);
+                double MusicTotal_present_comparison = (MusicTotal/total*100);
+                double PhilosophyTotal_present_comparison = (PhilosophyTotal/total*100);
+                double ScienceTotal_present_comparison = (ScienceTotal/total*100);
 
 
                 //load multiple years of data - predict trend
                 double pastTotal = 0;
                 try{
-                    File file = new File("pastyear1.txt");
+                    //System.out.println("__________________________________________");
+                    File file = new File("pastyear1.txt"); 
                     BufferedReader reader = new BufferedReader(new FileReader(file));
                     String text = null;
                     String [] split;
@@ -325,14 +352,77 @@ public class TrendCompo {
                 //Calculate total amount of votes from previous and current year
                 total += pastTotal;
 
-                System.out.println("\nPrediction based off previous year and current year - ");
-                System.out.println("Votes for AI: "+ df.format((AITotal/total*100))+"%");
-                System.out.println("Votes for Literature: " + df.format((LiteratureTotal/total*100))+"%");
-                System.out.println("Votes for Math: " + df.format((MathTotal/total*100))+"%");
-                System.out.println("Votes for Music: " + df.format((MusicTotal/total*100)) +"%");
-                System.out.println("Votes for Philosophy: " + df.format((PhilosophyTotal/total*100)) +"%");
-                System.out.println("Votes for Science: " + df.format((ScienceTotal/total*100)) +"%");
+                System.out.println("       ________________________________________________________________________________________________");
 
+                System.out.println("       | Prediction of next year's VOTING TREND based off previous years data (Sophisicated Prediction)");
+                System.out.println("       |");
+
+                //System.out.println("        what is total : "+ total);
+                System.out.println("       | Votes for Category - AI         :" + df.format((AITotal/total*100))+"%");
+                System.out.println("       | Votes for Category - Literature :" + df.format((LiteratureTotal/total*100))+"%");
+                System.out.println("       | Votes for Category - Math       :" + df.format((MathTotal/total*100))+"%");
+                System.out.println("       | Votes for Category - Music      :" + df.format((MusicTotal/total*100)) +"%");
+                System.out.println("       | Votes for Category - Philosophy :" + df.format((PhilosophyTotal/total*100)) +"%");
+                System.out.println("       | Votes for Category - Science    :" + df.format((ScienceTotal/total*100)) +"%");
+                System.out.println("       ________________________________________________________________________________________________");
+
+                double AITotal_past_comparison = (AITotal/total*100);
+                double LiteratureTotal_past_comparison = (LiteratureTotal/total*100);
+                double MathTotal_past_comparison = (MathTotal/total*100);
+                double MusicTotal_past_comparison = (MusicTotal/total*100);
+                double PhilosophyTotal_past_comparison = (PhilosophyTotal/total*100);
+                double ScienceTotal_past_comparison = (ScienceTotal/total*100);
+
+
+                //trend up or down
+                //AI
+                System.out.println("\n");
+                System.out.println("       Trends Observed");
+                System.out.println("       _________________\n");
+
+
+                if(AITotal_past_comparison > AITotal_present_comparison){
+                    System.out.println("       Category AI is predicted to have a UPWARDS trend.");
+                }else{
+                    System.out.println("       Category AI is predicted to have a DOWNWARDS trend.");
+                }
+                //Literature
+                if(LiteratureTotal_past_comparison > LiteratureTotal_present_comparison){
+                    System.out.println("       Category Literature is predicted to have a UPWARDS trend.");
+                }else{
+                    System.out.println("       Category Literature is predicted to have a DOWNWARDS trend.");
+                }
+                //Math
+                if(MathTotal_past_comparison > MathTotal_present_comparison){
+                    System.out.println("       Category Math is predicted to have a UPWARDS trend.");
+                }else{
+                    System.out.println("       Category Math is predicted to have a DOWNWARDS trend.");
+                }
+                //Music
+                if(MusicTotal_past_comparison > MusicTotal_present_comparison){
+                    System.out.println("       Category Music is predicted to have a UPWARDS trend.");
+                }else{
+                    System.out.println("       Category Music is predicted to have a DOWNWARDS trend.");
+                }
+                //Philosophy
+                if(PhilosophyTotal_past_comparison > PhilosophyTotal_present_comparison){
+                System.out.println("       Category Philosophy is predicted to have a UPWARDS trend.");
+                }else{
+                    System.out.println("       Category Philosophy is predicted to have a DOWNWARDS trend.");
+                }
+                //Science
+                if(ScienceTotal_past_comparison > ScienceTotal_present_comparison){
+                    System.out.println("       Category Science is predicted to have a UPWARDS trend.");
+                }else{
+                    System.out.println("       Category Science is predicted to have a DOWNWARDS trend.");
+                }
+
+                //System.out.println("The trend for AI is " + up_or_down);
+
+
+                //in different age group/education background/income group
+
+                
 
                 /*
                 back = new KeyValueList();
