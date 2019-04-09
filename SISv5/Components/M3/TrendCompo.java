@@ -15,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Hashtable;
 import java.util.*;
+import java.text.DecimalFormat;
 
 public class TrendCompo {
 
@@ -190,11 +191,110 @@ public class TrendCompo {
         encoder.sendMsg(back);
 
         switch(type){
-            case "25":
-                String all_posters;
-                all_posters= kvList.getValue("CandidateID");
+            case "25": // NEED TO CHANGE BACK TO 25
+                 
+                String all_posters= kvList.getValue("CandidateID");
                 System.out.println(all_posters + " \n");
                 System.out.println("Poster IDs received.");
+                
+
+
+                //Subjects
+                //001 - AI
+                //002 - Literature
+                //003 - Math
+                //004 - History
+                //005 - Philosophy
+                //006 - Science
+                
+                all_posters = all_posters.replace("}","");
+                all_posters = all_posters.replace("{","");
+                all_posters = all_posters.replace(" ","");
+                all_posters = all_posters.replace("001","AI");
+                all_posters = all_posters.replace("002","Literature");
+                all_posters = all_posters.replace("003","Math");
+                all_posters = all_posters.replace("004","Music");
+                all_posters = all_posters.replace("005","Philosophy");
+                all_posters = all_posters.replace("006","Science");
+
+                System.out.println(all_posters + " \n");
+
+
+                double AITotal =0,LiteratureTotal=0,MathTotal=0, MusicTotal=0,PhilosophyTotal=0,ScienceTotal=0;
+                double total=0;
+                String[] tokens = all_posters.split(",");
+                for(String t: tokens){
+                    String [] sep_tokens = t.split("=");
+                    // for(String t2: sep_tokens){
+                        for(int i = 0; i<sep_tokens.length; i++)
+                        {   
+                            if(sep_tokens[i].equals("AI"))
+                            {
+                                AITotal += Integer.parseInt(sep_tokens[i+1]);
+                                total += AITotal;
+                            }
+                            if(sep_tokens[i].equals("Literature"))
+                            {
+                                LiteratureTotal += Integer.parseInt(sep_tokens[i+1]);
+                                total += LiteratureTotal;
+                            }
+                            if(sep_tokens[i].equals("MathTotal"))
+                            {
+                                MathTotal += Integer.parseInt(sep_tokens[i+1]);
+                                total += MathTotal;
+                            }
+                            if(sep_tokens[i].equals("Music"))
+                            {
+                                MusicTotal += Integer.parseInt(sep_tokens[i+1]);
+                                total += MusicTotal;
+                            }
+                            if(sep_tokens[i].equals("Philosophy"))
+                            {
+                                PhilosophyTotal += Integer.parseInt(sep_tokens[i+1]);
+                                total += PhilosophyTotal;
+                            }
+                            if(sep_tokens[i].equals("Science"))
+                            {
+                                ScienceTotal += Integer.parseInt(sep_tokens[i+1]);
+                                total += ScienceTotal;
+                            }
+                        }
+                        //System.out.println("sep: " + t2);
+                    // }
+                }
+                
+                //for this year, rank the subjects - which is more popular than another
+
+                DecimalFormat df = new DecimalFormat("##.##");
+
+
+                System.out.println("AITotal "+ df.format((AITotal/total*100))+"%");
+                System.out.println("LiteratureTotal " + df.format((LiteratureTotal/total*100)) +"%");
+                System.out.println("MathTotal " + df.format((MathTotal/total*100))+"%");
+                System.out.println("MusicTotal " + df.format((MusicTotal/total*100)) +"%");
+                System.out.println("PhilosophyTotal " + df.format((PhilosophyTotal/total*100)) +"%");
+                System.out.println("ScienceTotal " + df.format((ScienceTotal/total*100)) +"%");
+
+                /*
+
+                //load multiple years of data - predict trend
+
+                try{
+                    file = new File("pastyear1.txt");
+                    reader = new BufferedReader(new FileReader(file));
+                    String text = null;
+                    String [] split;
+                    while((text = reader.readline()) != null){
+                        split = text.split(",");
+                        
+                    }
+                }
+                catch(FileNotFoundException e){
+                    e.printStackTrace();
+                }
+
+                */
+
 
                 /*
                 back = new KeyValueList();

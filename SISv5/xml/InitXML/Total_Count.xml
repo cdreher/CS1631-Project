@@ -11,7 +11,7 @@
 	</Item>
 	<Item>
 		<Key>CandidateID</Key>
-		<Value>001,002, 001, 003, 004, 005, 003, 002</Value>
+		<Value>{003=1, 002=1, 001=1}</Value>
 	</Item>
 	<Item>
 		<Key>Sender</Key>
