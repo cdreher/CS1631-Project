@@ -267,15 +267,14 @@ public class TrendCompo {
 
                 DecimalFormat df = new DecimalFormat("##.##");
 
-
-                System.out.println("AITotal "+ df.format((AITotal/total*100))+"%");
-                System.out.println("LiteratureTotal " + df.format((LiteratureTotal/total*100)) +"%");
-                System.out.println("MathTotal " + df.format((MathTotal/total*100))+"%");
-                System.out.println("MusicTotal " + df.format((MusicTotal/total*100)) +"%");
-                System.out.println("PhilosophyTotal " + df.format((PhilosophyTotal/total*100)) +"%");
-                System.out.println("ScienceTotal " + df.format((ScienceTotal/total*100)) +"%");
-
-                /*
+                System.out.println("\nPercentages from this year's voting - ");
+                System.out.println("Votes for AI: "+ df.format((AITotal/total*100))+"%");
+                System.out.println("Votes for Literature: " + df.format((LiteratureTotal/total*100))+"%");
+                System.out.println("Votes for Math: " + df.format((MathTotal/total*100))+"%");
+                System.out.println("Votes for Music: " + df.format((MusicTotal/total*100)) +"%");
+                System.out.println("Votes for Philosophy: " + df.format((PhilosophyTotal/total*100)) +"%");
+                System.out.println("Votes for Science: " + df.format((ScienceTotal/total*100)) +"%");
+                
 
                 //load multiple years of data - predict trend
 
@@ -284,16 +283,56 @@ public class TrendCompo {
                     reader = new BufferedReader(new FileReader(file));
                     String text = null;
                     String [] split;
+                    int pastTotal = 0;
                     while((text = reader.readline()) != null){
                         split = text.split(",");
-                        
+                        //checks each line to see which category total it should add to
+                        if(split[0] == 001)
+                        {
+                            AITotal += Integer.parseInt(split[1]);
+                            pastTotal += Integer.parseInt(split[1]);
+                        }
+                        if(split[0] == 002)
+                        {
+                            LiteratureTotal += Integer.parseInt(split[1]);
+                            pastTotal += Integer.parseInt(split[1]);
+                        }
+                        if(split[0] == 003)
+                        {
+                            MathTotal += Integer.parseInt(split[1]);
+                            pastTotal += Integer.parseInt(split[1]);
+                        }
+                        if(split[0] == 004)
+                        {
+                            MusicTotal += Integer.parseInt(split[1]);
+                            pastTotal += Integer.parseInt(split[1]);
+                        }
+                        if(split[0] == 005)
+                        {
+                            PhilosophyTotal += Integer.parseInt(split[1]);
+                            pastTotal += Integer.parseInt(split[1]);
+                        }
+                        if(split[0] == 006)
+                        {
+                            ScienceTotal += Integer.parseInt(split[1]);
+                            pastTotal += Integer.parseInt(split[1]);
+                        }
                     }
                 }
                 catch(FileNotFoundException e){
                     e.printStackTrace();
                 }
 
-                */
+                //Calculate total amount of votes from previous and current year
+                total += pastTotal;
+
+                System.out.println("\nPrediction based off previous year and current year - ");
+                System.out.println("Votes for AI: "+ df.format((AITotal/total*100))+"%");
+                System.out.println("Votes for Literature: " + df.format((LiteratureTotal/total*100))+"%");
+                System.out.println("Votes for Math: " + df.format((MathTotal/total*100))+"%");
+                System.out.println("Votes for Music: " + df.format((MusicTotal/total*100)) +"%");
+                System.out.println("Votes for Philosophy: " + df.format((PhilosophyTotal/total*100)) +"%");
+                System.out.println("Votes for Science: " + df.format((ScienceTotal/total*100)) +"%");
 
 
                 /*
