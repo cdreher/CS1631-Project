@@ -1,0 +1,74 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Compo",
+            "request": "launch",
+            "mainClass": "Compo"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CreateGUI",
+            "request": "launch",
+            "mainClass": "CreateGUI"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CreateTempBloodPressure",
+            "request": "launch",
+            "mainClass": "CreateTempBloodPressure"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CreateUploader",
+            "request": "launch",
+            "mainClass": "CreateUploader"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExtraGUI",
+            "request": "launch",
+            "mainClass": "ExtraGUI"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Initializer",
+            "request": "launch",
+            "mainClass": "Initializer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Remote",
+            "request": "launch",
+            "mainClass": "Remote"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SISServer",
+            "request": "launch",
+            "mainClass": "SISServer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrendCompo",
+            "request": "launch",
+            "mainClass": "TrendCompo"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-voteGUI",
+            "request": "launch",
+            "mainClass": "voteGUI"
+        }
+    ]
+}

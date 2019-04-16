@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TitledPane alignment="CENTER" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Voting System" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="phoneNum" layoutX="31.0" layoutY="49.0" />
+            <TextField fx:id="candID" layoutX="383.0" layoutY="49.0" />
+            <Label fx:id="pnLabel" layoutX="63.0" layoutY="92.0" text="Phone Number" />
+            <Label fx:id="canLabel" layoutX="421.0" layoutY="92.0" text="Candidate ID" />
+            <Button fx:id="voteButton" layoutX="238.0" layoutY="172.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="122.0" text="Cast Vote" />
+         </children></AnchorPane>
+  </content>
+</TitledPane>
